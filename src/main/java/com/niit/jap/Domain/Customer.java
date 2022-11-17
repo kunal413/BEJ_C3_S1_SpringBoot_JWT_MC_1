@@ -8,14 +8,17 @@ public class Customer {
     @Id
     private int customerId;
     private String customerName;
-    private  String CustomerUserName;
-    private String CustomerUserPassword;
+    private String customerPassword;
+    private long customerPhoneNo;
 
-    public Customer(int customerId, String customerName, String customerUserName, String customerUserPassword) {
+    public Customer(int customerId, String customerName, String customerPassword, long customerPhoneNo) {
         this.customerId = customerId;
         this.customerName = customerName;
-        CustomerUserName = customerUserName;
-        CustomerUserPassword = customerUserPassword;
+        this.customerPassword = customerPassword;
+        this.customerPhoneNo = customerPhoneNo;
+    }
+
+    public Customer() {
     }
 
     public int getCustomerId() {
@@ -34,23 +37,20 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerUserName() {
-        return CustomerUserName;
+    public String getCustomerPassword() {
+        return customerPassword;
     }
 
-    public void setCustomerUserName(String customerUserName) {
-        CustomerUserName = customerUserName;
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
     }
 
-    public String getCustomerUserPassword() {
-        return CustomerUserPassword;
+    public long getCustomerPhoneNo() {
+        return customerPhoneNo;
     }
 
-    public void setCustomerUserPassword(String customerUserPassword) {
-        CustomerUserPassword = customerUserPassword;
-    }
-
-    public Customer() {
+    public void setCustomerPhoneNo(long customerPhoneNo) {
+        this.customerPhoneNo = customerPhoneNo;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Customer {
         return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
-                ", CustomerUserName='" + CustomerUserName + '\'' +
-                ", CustomerUserPassword='" + CustomerUserPassword + '\'' +
+                ", customerPassword='" + customerPassword + '\'' +
+                ", customerPhoneNo=" + customerPhoneNo +
                 '}';
     }
 }

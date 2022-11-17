@@ -1,6 +1,7 @@
 package com.niit.jap.controller;
 
 import com.niit.jap.Domain.Customer;
+import com.niit.jap.exception.CustomerAlreadyExistException;
 import com.niit.jap.exception.CustomerNotFoundException;
 import com.niit.jap.service.CustomerService;
 import com.niit.jap.service.SecurityTokenGenerator;
@@ -27,8 +28,8 @@ public class CustomerController {
     public ResponseEntity loginUser(@RequestBody Customer customer) throws CustomerNotFoundException {
         Map<String, String> map = null;
         try {
-            Customer customer1 = customerService.findByCustomerUsernameAndCustomerUserPassword(customer.getCustomerUserName(), customer.getCustomerUserPassword());
-            if (customer1.getCustomerUserName().equals(customer.getCustomerUserName())) {
+            Customer customer1 = customerService.findByCustomerNameAndCustomerPassword(customer.getCustomerName(), customer.getCustomerPassword());
+            if (customer1.getCustomerName().equals(customer.getCustomerName())) {
                 map = securityTokenGenerator.generateToken(customer);
             }
             responseEntity = new ResponseEntity<>(map, HttpStatus.OK);
@@ -43,19 +44,19 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity saveUser(@RequestBody Customer customer) {
+    public ResponseEntity saveUser(@RequestBody Customer customer) throws CustomerAlreadyExistException {
         Customer createdUser = customerService.saveUser(customer);
         return responseEntity = new ResponseEntity<>("User Created", HttpStatus.CREATED);
 
     }
 
-    @GetMapping("/api/v1/userservice/users")
+    @GetMapping("/api/v1/customerservice/customers")
     public ResponseEntity getAllUsers() throws CustomerNotFoundException {
         List<Customer> list = customerService.getAllUsers();
         responseEntity = new ResponseEntity<>(list, HttpStatus.OK);
         return responseEntity;
     }
-    @DeleteMapping("/api/v1/userservice/{userId}")
+    @DeleteMapping("/api/v1/customerservice/{customerId}")
     public ResponseEntity deleteUserById(@PathVariable("customerId") int customerId) throws CustomerNotFoundException {
         ResponseEntity responseEntity =null;
         try {

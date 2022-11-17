@@ -3,12 +3,13 @@ package com.niit.jap.service;
 import com.niit.jap.Domain.Customer;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-public class JwtSecurityTokenGeneratorImpl {
+@Service
+public class JwtSecurityTokenGeneratorImpl implements SecurityTokenGenerator {
     public Map<String, String> generateToken(Customer customer) {
 
         String jwtToken = null;

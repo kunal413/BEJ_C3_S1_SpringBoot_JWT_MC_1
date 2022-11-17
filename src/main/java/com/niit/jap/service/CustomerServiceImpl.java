@@ -1,6 +1,7 @@
 package com.niit.jap.service;
 
 import com.niit.jap.Domain.Customer;
+import com.niit.jap.exception.CustomerAlreadyExistException;
 import com.niit.jap.exception.CustomerNotFoundException;
 import com.niit.jap.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,14 @@ public class CustomerServiceImpl implements CustomerService{
 
 
     @Override
-    public Customer saveUser(Customer customer) {
+    public Customer saveUser(Customer customer) throws CustomerAlreadyExistException {
+
         return customerRepository.save(customer);
     }
 
     @Override
-    public Customer findByCustomerUsernameAndCustomerUserPassword(String customerUsername, String customerUserPassword) throws CustomerNotFoundException {
-        Customer customer= customerRepository.findByCustomerUserNameAndCustomerUserPassword(customerUsername,customerUserPassword);
+    public Customer findByCustomerNameAndCustomerPassword(String customerName, String customerPassword) throws CustomerNotFoundException {
+        Customer customer= customerRepository.findByCustomerNameAndCustomerPassword(customerName,customerPassword);
         if (customer==null){
             throw new CustomerNotFoundException();
         }
